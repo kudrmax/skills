@@ -1,0 +1,15 @@
+# Коммитятся только личные скиллы, перечисленные ниже.
+# Всё остальное в ~/.claude/skills игнорируется автоматически:
+# скиллы из установщика Авито (симлинки в ~/.agents/skills), synced/ от Claude Code,
+# save-note из репо Obsidian, .venv, .trash и т.п.
+/*
+!/.gitignore
+!/README.md
+!/book-chapter-digest/
+!/epub-digest-embed/
+!/search-conversations/
+
+__pycache__/
+*.pyc
+.DS_Store
+*.digest/
