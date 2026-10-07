@@ -1,0 +1,118 @@
+{
+  "name": {
+    "ru": "ИМЯ ФАМИЛИЯ",
+    "en": "NAME LAST_NAME"
+  },
+  "file_prefix": "LAST_NAME_CV",
+  "photo_file": "photo_3x4.jpg",
+  "contacts": {
+    "ru": [
+      {
+        "label": "EMAIL",
+        "url": "mailto:EMAIL"
+      },
+      {
+        "label": "t.me/TELEGRAM",
+        "url": "https://t.me/TELEGRAM"
+      },
+      {
+        "label": "PHONE",
+        "url": null,
+        "small": true
+      },
+      {
+        "label": "github.com/GITHUB_USER",
+        "url": "https://github.com/GITHUB_USER?tab=repositories"
+      }
+    ],
+    "en": [
+      {
+        "label": "EMAIL",
+        "url": "mailto:EMAIL"
+      },
+      {
+        "label": "WhatsApp: PHONE",
+        "url": "https://wa.me/PHONE",
+        "link_part": "PHONE"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/LINKEDIN"
+      },
+      {
+        "label": "github.com/GITHUB_USER",
+        "url": "https://github.com/GITHUB_USER?tab=repositories"
+      }
+    ]
+  },
+  "sections": {
+    "ru": {
+      "summary": "О себе",
+      "education": "Образование",
+      "experience": "Опыт работы",
+      "skills": "Навыки",
+      "projects": "Проекты",
+      "courses": "Дополнительное образование",
+      "languages": "Языки"
+    },
+    "en": {
+      "summary": "Summary",
+      "education": "Education",
+      "experience": "Experience",
+      "skills": "Skills",
+      "projects": "Projects",
+      "courses": "Certifications \\& Coursework",
+      "languages": "Languages"
+    }
+  },
+  "section_order": {
+    "ru": [
+      "education",
+      "experience",
+      "skills",
+      "projects",
+      "courses",
+      "languages"
+    ],
+    "en": [
+      "skills",
+      "experience",
+      "projects",
+      "education",
+      "courses",
+      "languages"
+    ]
+  },
+  "education": [
+    {
+      "years": "2024 -- 2026",
+      "ru": {
+        "uni": "Национальный исследовательский университет «МЭИ»",
+        "degree": "Магистр, \"Искусственный интеллект\"",
+        "city": "Москва"
+      },
+      "en": {
+        "uni": "Moscow Power Engineering Institute",
+        "degree": "M.Sc. in Artificial Intelligence",
+        "city": "Moscow, Russia"
+      }
+    },
+    {
+      "years": "2020 -- 2024",
+      "ru": {
+        "uni": "Московский государственный технический университет им. Н.\\,Э. Баумана",
+        "degree": "Бакалавр, \"Прикладная математика\"",
+        "city": "Москва"
+      },
+      "en": {
+        "uni": "Bauman Moscow State Technical University",
+        "degree": "B.Sc. in Applied Mathematics",
+        "city": "Moscow, Russia"
+      }
+    }
+  ],
+  "languages": {
+    "ru": "\\textbf{Английский} (Upper-Intermediate, B2), \\,\\! \\textbf{Русский} (Native)",
+    "en": "\\textbf{English} (Upper-Intermediate, B2), \\,\\! \\textbf{Russian} (Native)"
+  }
+}

@@ -1,0 +1,424 @@
+{
+  "titles_examples": [
+    "ML Engineer",
+    "Junior ML Engineer",
+    "Data Scientist",
+    "Junior Data Scientist",
+    "Data Analyst",
+    "Аналитик данных",
+    "Product Analyst",
+    "Junior BI Developer",
+    "Python Developer"
+  ],
+  "summaries": {
+    "ml_imbalanced": {
+      "ru": "ML-инженер с образованием в области прикладной математики и искусственного интеллекта. Имею опыт разработки моделей классификации на несбалансированных данных, выявления аномальных паттернов и feature engineering с использованием Python, Scikit-learn и CatBoost.",
+      "en": "ML Engineer with a background in Applied Mathematics and Artificial Intelligence. Experienced in building classification models on imbalanced data, detecting anomalous patterns, and feature engineering with Python, Scikit-learn, and CatBoost."
+    },
+    "ml_general": {
+      "ru": "ML-инженер с образованием в области прикладной математики и искусственного интеллекта. Имею опыт разработки ML-пайплайнов для задач классификации, компьютерного зрения и обработки естественного языка с использованием Python, Scikit-learn и PyTorch.",
+      "en": "ML Engineer with a background in Applied Mathematics and Artificial Intelligence. Experienced in building ML pipelines for classification, computer vision, and natural language processing tasks using Python, Scikit-learn, and PyTorch."
+    },
+    "ml_classic": {
+      "ru": "ML-инженер с образованием в области прикладной математики и искусственного интеллекта. Имею опыт разработки ML-пайплайнов для задач классификации, прогнозирования временных рядов и обработки данных с использованием Python, Scikit-learn, PyTorch.",
+      "en": "ML Engineer with a background in Applied Mathematics and Artificial Intelligence. Experienced in building ML pipelines for classification, time series forecasting, and data processing using Python, Scikit-learn, and PyTorch."
+    },
+    "ds": {
+      "ru": "Data Scientist с образованием в области прикладной математики и искусственного интеллекта. Имею опыт разработки моделей классификации на несбалансированных данных, выявления аномальных паттернов и feature engineering с использованием Python, Scikit-learn и CatBoost.",
+      "en": "Data Scientist with a background in Applied Mathematics and Artificial Intelligence. Experienced in building classification models on imbalanced data, detecting anomalous patterns, and feature engineering with Python, Scikit-learn, and CatBoost."
+    },
+    "da": {
+      "ru": "Аналитик данных с образованием в области прикладной математики и искусственного интеллекта. Имею опыт обработки, трансформации и анализа данных, разработки ETL-процессов, работы с SQL и Python, а также построения аналитических и ML-пайплайнов.",
+      "en": "Data Analyst with a background in Applied Mathematics and Artificial Intelligence. Experienced in processing, transforming, and analyzing data, developing ETL processes, working with SQL and Python, and building analytical and ML pipelines."
+    },
+    "product_analyst": {
+      "ru": "Аналитик с образованием в области прикладной математики и искусственного интеллекта. Имею опыт анализа пользовательских данных, проверки гипотез и построения ML-моделей для прогнозирования поведения клиентов с использованием Python, SQL и Scikit-learn.",
+      "en": "Analyst with a background in Applied Mathematics and Artificial Intelligence and commercial experience in data analytics. Experienced in analyzing structured data, developing metrics and features, building data pipelines, and applying statistical and machine learning methods to business problems. Strong SQL and Python skills with hands-on experience in data warehouses, dashboards, and hypothesis-driven analysis."
+    }
+  },
+  "experience": {
+    "croc": {
+      "dates": {
+        "ru": "Сентябрь 2025 -- Декабрь 2025",
+        "en": "Sep 2025 -- Dec 2025"
+      },
+      "role": {
+        "ru": "BI/DWH-Аналитик",
+        "en": "DWH/BI Analyst"
+      },
+      "company": {
+        "ru": "КРОК inc.",
+        "en": "CROC Inc."
+      },
+      "url": "https://www.croc.ru/",
+      "city": {
+        "ru": "Москва",
+        "en": "Moscow, Russia"
+      },
+      "bullets": {
+        "olap": {
+          "ru": "Разработка OLAP-кубов для BI-платформы, обеспечение подготовки данных для аналитической отчетности.",
+          "en": "Developed OLAP cubes for a BI platform and prepared data for analytical reporting."
+        },
+        "sql": {
+          "ru": "Разработка SQL-запросов и обработка данных в PostgreSQL, анализ выборок объёмом в несколько миллионов записей.",
+          "en": "Developed SQL queries and processed data in PostgreSQL, analyzing datasets containing several million records."
+        },
+        "etl": {
+          "ru": "Участие в разработке ETL-процессов и автоматизации подготовки данных.",
+          "en": "Participated in the development of ETL processes and automated data preparation workflows."
+        },
+        "dash": {
+          "ru": "Создание аналитических дашбордов для мониторинга ключевых бизнес-показателей.",
+          "en": "Created analytical dashboards for monitoring key business performance indicators."
+        }
+      },
+      "default_bullets": [
+        "olap",
+        "sql",
+        "etl",
+        "dash"
+      ]
+    }
+  },
+  "skill_presets": {
+    "ml": [
+      [
+        "Programming",
+        "Python, C++"
+      ],
+      [
+        "Classical ML",
+        "Scikit-learn, CatBoost, XGBoost, Classification, Regression, Clustering, Time Series Forecasting, Feature Engineering, Hyperparameter Optimization"
+      ],
+      [
+        "Data Processing",
+        "SQL, Pandas, NumPy, Statsmodels, Hypothesis Testing, Matplotlib, EDA"
+      ],
+      [
+        "Deep Learning / CV",
+        "PyTorch, Neural Networks, CNN, Transfer Learning, Computer Vision, YOLO, OpenCV"
+      ],
+      [
+        "NLP",
+        "Text Classification, Embeddings, Semantic Search, Information Retrieval, Query Understanding"
+      ],
+      [
+        "Development Tools",
+        "Git, Linux"
+      ]
+    ],
+    "ds": [
+      [
+        "Programming",
+        "Python, C++"
+      ],
+      [
+        "Data Processing",
+        "SQL, Pandas, NumPy, Matplotlib, EDA, OLAP, ETL, Statsmodels, Hypothesis Testing"
+      ],
+      [
+        "Classical ML",
+        "Scikit-learn, CatBoost, XGBoost, Classification, Regression, Clustering, Time Series Forecasting, Feature Engineering, Hyperparameter Optimization"
+      ],
+      [
+        "Deep Learning",
+        "PyTorch, Neural Networks, CNN, Transfer Learning, Computer Vision, YOLO, OpenCV"
+      ],
+      [
+        "NLP",
+        "Text Classification, Embeddings, Semantic Search, Information Retrieval, Query Understanding"
+      ],
+      [
+        "Development Tools",
+        "Git, Linux"
+      ]
+    ],
+    "da_ru": [
+      [
+        "Языки программирования",
+        "Python, C++"
+      ],
+      [
+        "Анализ данных",
+        "SQL, Pandas, NumPy, Matplotlib, EDA, Feature Engineering, Excel, Tableau, A/B testing"
+      ],
+      [
+        "Базы данных",
+        "PostgreSQL, ETL, OLAP, Airflow"
+      ],
+      [
+        "ML",
+        "Scikit-learn, CatBoost, XGBoost, Classification, Regression, Clustering, Time Series Forecasting"
+      ],
+      [
+        "Инструменты разработки",
+        "Git, Linux"
+      ]
+    ],
+    "analyst_en": [
+      [
+        "Analytics",
+        "Product Analytics, EDA, Statistical Analysis, Hypothesis Testing, A/B Testing, Data Visualization"
+      ],
+      [
+        "Data",
+        "SQL, PostgreSQL, Pandas, NumPy, ETL, Data Warehousing, OLAP, Data Validation"
+      ],
+      [
+        "Programming",
+        "Python, C++"
+      ],
+      [
+        "ML",
+        "Scikit-learn, CatBoost, XGBoost, Feature Engineering, Classification, Regression, Time Series Forecasting"
+      ],
+      [
+        "Tools",
+        "Matplotlib, Git, Linux"
+      ]
+    ]
+  },
+  "skills_known": "Python, C++, SQL, PostgreSQL, Pandas, NumPy, Matplotlib, Seaborn, Statsmodels, Scikit-learn, CatBoost, XGBoost, PyTorch, CNN, Transfer Learning, YOLO (Ultralytics), OpenCV, Embeddings (e5), NetworkX, Plotly, pymorphy3, NLTK, SymSpell, MPI, PyGame, OLAP, ETL, Data Warehousing, Dashboards/BI, Excel, Tableau, Airflow, A/B testing, Hypothesis Testing, EDA, Feature Engineering, NoSQL (familiar), Git, Linux, Jupyter, Google Colab",
+  "skills_unconfirmed": "Docker (в RU-резюме закомментирован, в EN указан — использовать только после подтверждения пользователя)",
+  "projects": {
+    "bank": {
+      "title": {
+        "ru": "Модели классификации для банковского маркетинга",
+        "en": "Bank Marketing Classification Models"
+      },
+      "url": "https://github.com/GITHUB_USER/classic-ML-models-in-Bank-Marketing",
+      "date": {
+        "ru": "Апрель 2026",
+        "en": "April 2026"
+      },
+      "tags": [
+        "Classical ML"
+      ],
+      "focus": "tabular, imbalanced (8:1), EDA, feature engineering, data leakage, sklearn Pipeline, LinReg..CatBoost, PR-AUC/F2, L1/L2",
+      "variants": {
+        "default": {
+          "ru": "Провел разведочный анализ данных (EDA), выполнил генерацию признаков и реализовал пайплайн классификации в Scikit-learn; исследовал влияние дисбаланса классов, L1/L2-регуляризации, сложности деревьев и сравнил модели от Logistic Regression до CatBoost по метрике PR-AUC.",
+          "en": "Performed exploratory data analysis (EDA), conducted feature engineering, and implemented a classification pipeline in Scikit-learn; investigated the impact of class imbalance, L1/L2 regularization, and tree complexity, and compared models ranging from Logistic Regression to CatBoost using PR-AUC."
+        },
+        "data": {
+          "ru": "Провел EDA клиентских данных банка с дисбалансом классов 8:1, выявил и устранил утечку данных, сгенерировал признаки (циклическое кодирование дат, бинарные флаги, нормализующие преобразования); сравнил модели от Logistic Regression до CatBoost по PR-AUC и F2 и показал, что балансировка классов смещает порог решения, не меняя качества ранжирования.",
+          "en": "Performed EDA on bank client data with an 8:1 class imbalance, detected and removed data leakage, and engineered features (cyclical date encoding, binary flags, normalizing transforms); compared models from Logistic Regression to CatBoost using PR-AUC and F2 and showed that class balancing shifts the decision threshold without changing ranking quality."
+        },
+        "eng": {
+          "ru": "Реализовал воспроизводимый пайплайн предобработки и обучения на Scikit-learn (Pipeline, ColumnTransformer) без утечки данных между выборками; сравнил 8 моделей от Logistic Regression до CatBoost по PR-AUC, исследовал влияние балансировки классов, L1/L2-регуляризации и глубины деревьев.",
+          "en": "Built a reproducible preprocessing and training pipeline in Scikit-learn (Pipeline, ColumnTransformer) with no leakage between splits; compared 8 models from Logistic Regression to CatBoost using PR-AUC and studied the effects of class balancing, L1/L2 regularization, and tree depth."
+        }
+      }
+    },
+    "samokat": {
+      "title": {
+        "ru": "ML-пайплайн повышения релевантности поиска Samokat",
+        "en": "Samokat Search Relevance ML Pipeline"
+      },
+      "url": "https://github.com/kudrmax/samokat-search-ml",
+      "date": {
+        "ru": "Июль 2026",
+        "en": "July 2026"
+      },
+      "tags": [
+        "Classical ML",
+        "NLP"
+      ],
+      "focus": "team project, e-commerce search, ~80K query-item pairs (ESCI), e5 embeddings + kNN category classifier, typo correction, GradBoost relevance, NetworkX graphs",
+      "variants": {
+        "default": {
+          "ru": "В команде разработан полный пайплайн повышения релевантности поиска: обучены классификаторы категорий запросов на основе эмбеддингов, реализованы методы исправления опечаток, построена модель релевантности запрос--товар с использованием разметки ESCI и исследованы связи между товарами с помощью графов.",
+          "en": "Developed a full search relevance pipeline as part of a team: trained query category classifiers based on embeddings, implemented spelling correction methods, built a query--product relevance model using ESCI annotations, and investigated product relationships using graph-based methods."
+        },
+        "metrics": {
+          "ru": "В команде разработан пайплайн релевантности поиска на ~80K размеченных пар запрос--товар (ESCI): иерархический классификатор категорий запроса на эмбеддингах e5 (accuracy 90\\%), исправление опечаток SymSpell + префиксное дерево + pymorphy3 (75\\% против 34\\% у seq2seq-модели), двухэтапная модель релевантности на градиентном бустинге и графы товаров-заменителей в NetworkX.",
+          "en": "Built a search relevance pipeline as part of a team on ~80K annotated query--product pairs (ESCI): a hierarchical query category classifier on e5 embeddings (90\\% accuracy), typo correction with SymSpell + prefix trie + pymorphy3 (75\\% vs. 34\\% for a seq2seq model), a two-stage gradient boosting relevance model, and substitute-product graphs in NetworkX."
+        },
+        "data": {
+          "ru": "В команде проанализированы ~80K размеченных пар запрос--товар e-commerce каталога: EDA поисковых запросов и иерархии категорий, оценка доли запросов с опечатками (48\\%), инженерия лексических и эмбеддинговых признаков для модели релевантности и визуализация графов связей между товарами (NetworkX, Plotly).",
+          "en": "Analyzed ~80K annotated query--product pairs of an e-commerce catalog as part of a team: EDA of search queries and the category hierarchy, estimation of the typo rate (48\\% of queries), lexical and embedding feature engineering for a relevance model, and visualization of product relationship graphs (NetworkX, Plotly)."
+        }
+      }
+    },
+    "liza": {
+      "title": {
+        "ru": "NLP-анализ сообщений о пропавших людях",
+        "en": "NLP Analysis of Missing Persons Reports"
+      },
+      "url": "https://github.com/GITHUB_USER/LizaAlert",
+      "date": {
+        "ru": "Июль 2025",
+        "en": "July 2025"
+      },
+      "tags": [
+        "Classical ML",
+        "NLP"
+      ],
+      "focus": "team project, dirty unstructured text data, cleaning/normalization, extracting fields from free text (pymorphy3, NLTK), EDA + maps (folium), LogReg/RF. NO real metrics — never cite numbers",
+      "variants": {
+        "default": {
+          "ru": "В команде разработан пайплайн обработки неструктурированных текстовых данных: очистка, нормализация и извлечение признаков из описаний случаев с использованием методов NLP. Классификация статуса поиска с помощью Logistic Regression и Random Forest, проведен анализ влияния текстовых и структурных признаков.",
+          "en": "Developed a pipeline for processing unstructured text data as part of a team: cleaned and normalized case descriptions and extracted features using NLP methods. Classified search status using Logistic Regression and Random Forest and analyzed the impact of textual and structured features."
+        },
+        "data": {
+          "ru": "В команде проведена очистка и нормализация зашумленного датасета: удаление дубликатов, приведение категорий и дат к единому формату, извлечение возраста, пола и локации из неструктурированного текста (pymorphy3, NLTK); проанализированы демографические, сезонные и географические закономерности с визуализацией, в том числе на карте (folium).",
+          "en": "Cleaned and normalized a noisy dataset as part of a team: removed duplicates, standardized categories and dates, and extracted age, gender, and location from unstructured text (pymorphy3, NLTK); analyzed demographic, seasonal, and geographic patterns with visualizations, including maps (folium)."
+        }
+      }
+    },
+    "yolo": {
+      "title": {
+        "ru": "Детекция касок и жилетов (YOLOv8)",
+        "en": "Hardhat and Safety Vest Detection (YOLOv8)"
+      },
+      "url": "https://github.com/GITHUB_USER/YOLOv8_detecting_hardhats-and-vests",
+      "date": {
+        "ru": "Июнь 2026",
+        "en": "June 2026"
+      },
+      "tags": [
+        "Computer Vision"
+      ],
+      "focus": "object detection, Ultralytics, transfer learning from COCO, 2.1K imgs, mAP50 0.925 / mAP50-95 0.709, bbox EDA, confidence analysis",
+      "variants": {
+        "default": {
+          "ru": "Выполнил дообучение YOLOv8s для детекции средств индивидуальной защиты с использованием transfer learning; достиг значения mAP50 = 0.925 и проанализировал зависимость уверенности предсказаний от характеристик изображений.",
+          "en": "Fine-tuned YOLOv8s for personal protective equipment detection using transfer learning, achieved mAP50 = 0.925, and analyzed prediction confidence dependence on image characteristics."
+        },
+        "detailed": {
+          "ru": "Дообучил YOLOv8s (transfer learning с COCO) для детекции СИЗ на 2.1K производственных снимках: mAP50 = 0.925, mAP50-95 = 0.709; провел EDA разметки (пропорции и положение bbox), анализ ошибок по confusion matrix и зависимости confidence от размера объекта.",
+          "en": "Fine-tuned YOLOv8s (transfer learning from COCO) for PPE detection on 2.1K industrial images: mAP50 = 0.925, mAP50-95 = 0.709; performed annotation EDA (bbox proportions and positions), confusion-matrix error analysis, and studied confidence versus object size."
+        }
+      }
+    },
+    "onepiece": {
+      "title": {
+        "ru": "Многоклассовая классификация персонажей One Piece",
+        "en": "Multi-class One Piece Character Classification"
+      },
+      "url": "https://github.com/GITHUB_USER/OnePieceClassifier-CW",
+      "date": {
+        "ru": "Май 2025",
+        "en": "May 2025"
+      },
+      "tags": [
+        "Computer Vision"
+      ],
+      "focus": "custom CNN in PyTorch, 18 classes, augmentation, BatchNorm study, gradient norms, SoftMax vs SparseMax; weak accuracy (0.67) — don't cite",
+      "variants": {
+        "default": {
+          "ru": "Разработал и исследовал CNN-модели для многоклассовой классификации изображений; сравнил Batch Normalization, SoftMax и SparseMax, различные стратегии аугментации данных и проанализировал динамику нормы градиента.",
+          "en": "Investigated the impact of CNN architectural choices on image classification quality by comparing Batch Normalization, SoftMax and SparseMax, data augmentation strategies, and gradient norm dynamics."
+        }
+      }
+    },
+    "kmeans": {
+      "title": {
+        "ru": "Кластеризация с использованием DBSCAN и K-Means",
+        "en": "DBSCAN and K-Means Clustering"
+      },
+      "url": "https://github.com/GITHUB_USER/KMeans-DBSCAN",
+      "date": {
+        "ru": "Октябрь 2024",
+        "en": "October 2024"
+      },
+      "tags": [
+        "Classical ML"
+      ],
+      "focus": "clustering, Wine (K-Means 94.7% agreement), Aniso (DBSCAN 99.1%), grid over 200 eps/m combos",
+      "variants": {
+        "default": {
+          "ru": "Сравнил алгоритмы DBSCAN и K-Means на нескольких реальных наборах данных и проанализировал качество кластеризации при различных распределениях данных.",
+          "en": "Compared DBSCAN and K-Means on several real-world datasets and analyzed clustering quality under different data distributions."
+        },
+        "detailed": {
+          "ru": "Реализовал алгоритмы K-Means и DBSCAN и исследовал их на наборах Wine и Aniso: точность кластеризации 94.7\\% и 99.1\\% относительно эталонной разметки; подобрал параметры DBSCAN по сетке из 200 комбинаций и проанализировал сходимость K-Means.",
+          "en": "Implemented K-Means and DBSCAN and evaluated them on the Wine and Aniso datasets, reaching 94.7\\% and 99.1\\% agreement with ground-truth labels; tuned DBSCAN over a 200-combination parameter grid and analyzed K-Means convergence."
+        }
+      }
+    },
+    "titanic": {
+      "title": {
+        "ru": "Классификация выживших на Титанике (RandomForest)",
+        "en": "Titanic Survival Classification (Random Forest)"
+      },
+      "url": "https://github.com/GITHUB_USER/titanic-RandomForest",
+      "date": {
+        "ru": "Май 2026",
+        "en": "May 2026"
+      },
+      "tags": [
+        "Classical ML"
+      ],
+      "focus": "basic tabular RF, Pipeline+ColumnTransformer, leakage removal, Accuracy 0.8092 — junior-level, use only as filler",
+      "variants": {
+        "default": {
+          "ru": "Разработал ML-пайплайн классификации с использованием Random Forest: выполнил EDA, feature engineering, предобработку данных через ColumnTransformer и подбор гиперпараметров; достиг Accuracy = 0.8092.",
+          "en": "Developed an ML classification pipeline using Random Forest: performed EDA and feature engineering, implemented preprocessing with ColumnTransformer, and tuned hyperparameters; achieved an Accuracy of 0.8092."
+        }
+      }
+    },
+    "mpi": {
+      "title": {
+        "ru": "Параллельное моделирование задачи N тел (C++, MPI)",
+        "en": "Parallel N-Body Simulation (C++, MPI)"
+      },
+      "url": "https://github.com/GITHUB_USER/MPI_N_bodies",
+      "date": {
+        "ru": "Март 2024",
+        "en": "March 2024"
+      },
+      "tags": [
+        "C++",
+        "MPI"
+      ],
+      "focus": "C++, MPI, HPC, Runge-Kutta 4, speedup up to ~37x on 54 procs, up to 200K bodies — good for backend/HPC/engineering roles",
+      "variants": {
+        "default": {
+          "ru": "Реализовал на C++ численное решение задачи гравитационного взаимодействия N тел методом Рунге--Кутты 4-го порядка и распараллелил вычисления с помощью MPI; провел замеры масштабируемости до 200K тел и 54 процессов, получив ускорение до 37 раз.",
+          "en": "Implemented a C++ solver for the gravitational N-body problem using the 4th-order Runge--Kutta method and parallelized it with MPI; benchmarked scalability up to 200K bodies and 54 processes, achieving up to a 37x speedup."
+        }
+      }
+    },
+    "space": {
+      "title": {
+        "ru": "Space Invaders на PyGame",
+        "en": "Space Invaders in PyGame"
+      },
+      "url": "https://github.com/GITHUB_USER/Space-Invaders-Pygame",
+      "date": {
+        "ru": "Сентябрь 2024",
+        "en": "September 2024"
+      },
+      "tags": [
+        "Python"
+      ],
+      "focus": "pure Python OOP app from scratch, game logic/state, config module; for SWE/backend roles only",
+      "variants": {
+        "default": {
+          "ru": "Разработана 2D-игра на Python с использованием PyGame с нуля: реализована игровая логика, обработка столкновений, система очков и здоровья, генерация врагов с изменяемым поведением и конфигурируемые параметры.",
+          "en": "Built a 2D game from scratch in Python with PyGame: implemented game logic, collision handling, score and health systems, enemies with changing behavior, and configurable parameters."
+        }
+      }
+    }
+  },
+  "courses": {
+    "shad": {
+      "ru": "\\textbf{«Продвинутое машинное обучение»} — Школа анализа данных Яндекса (ШАД)",
+      "en": "\\textbf{``Advanced Machine Learning''} — Yandex School of Data Analysis (YSDA)"
+    },
+    "dls": {
+      "ru": "\\textbf{Deep Learning School} — МФТИ",
+      "en": "\\textbf{Deep Learning School} — MIPT"
+    },
+    "hse": {
+      "ru": "\\textbf{«Машинное обучение»} — ФКН НИУ ВШЭ",
+      "en": "\\textbf{``Machine Learning''} — HSE Faculty of Computer Science"
+    }
+  },
+  "courses_default": [
+    "shad",
+    "dls"
+  ]
+}

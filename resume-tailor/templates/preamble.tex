@@ -1,0 +1,164 @@
+%-------------------------
+% Resume in Latex
+% Author : Jake Gutierrez
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+%%ENGINE_A%%
+\usepackage{ragged2e}
+
+%%ENGINE_B%%
+
+\usepackage{graphicx} % для фотки
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+
+%%GEOMETRY%%
+
+
+% обводка \skill
+\tikzset{
+  skillbox/.style={
+    rounded corners,
+    draw=gray,
+    %fill=gray!10,
+    inner sep=2.5pt,
+    outer sep=0pt
+  }
+}
+\newcommand{\skillbox}[1]{%
+\tikz[baseline=(X.base)]\node[skillbox] (X) {\small #1};%
+}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-0.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+%%ENGINE_C%%
+
+
+
+%-------------------------
+% Custom commands
+%-------------------------
+
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item{
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}
+    \vspace{-7pt}
+    }
+}
+
+\newcommand{\resumeSkillString}[2][0.15in]{%
+  \noindent
+  \hspace*{0.15in}%
+  \hangindent=#1
+  \hangafter=1
+  \small #2\par
+  \vspace{6pt}
+}
+
+
+\newcommand{\projectSummary}[1]{%
+  \vspace{10pt}
+  \noindent
+  \hspace*{0.24in}%
+  \begin{minipage}{\dimexpr 0.97\textwidth-0.24in\relax}
+    \small #1
+  \end{minipage}\par\vspace{2pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \vspace{-2pt}
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}
+    \vspace{-7pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}
+[leftmargin=0.15in, label={}]\setlength\itemsep{0.5em}}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in, rightmargin=0.08in]\vspace{-6pt}\justifying}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+
+
+% ФЛАГ FLAG НА НАЛИЧИЕ-ОТСУТСТВИЕ ФОТКИ (3x4):
+
+\newif\ifwithphoto
+%%PHOTO_FLAG%%
+
+\newlength{\photoWidth}         % ширина фотки в mm
+\newlength{\indentAfterPhoto}   % отстутп справа от фотки в mm
+\newlength{\headerWidth}        % ширина заголовка+образования в mm
+\newlength{\vspaceHeader}       % вертик. отступ над заголовком в mm
+\newlength{\tabLeftSummary}   % левый отступ текста "О себе"
+\def\summaryWidth{0.985}       % ширина блока саммари
+
+\setlength{\photoWidth}{0.0\textwidth}
+\setlength{\indentAfterPhoto}{0.0\textwidth}
+\setlength{\headerWidth}{1.0\textwidth}
+\setlength{\vspaceHeader}{-10mm}
+\setlength{\tabLeftSummary}{0.12in} % вариант без фото
+
+\ifwithphoto
+    \setlength{\photoWidth}{0.17\textwidth}
+    \setlength{\indentAfterPhoto}{0.03\textwidth}
+    \setlength{\headerWidth}{\dimexpr 1.0\textwidth - \photoWidth - \indentAfterPhoto - 0.01\textwidth \relax}
+    \setlength{\vspaceHeader}{-46.0mm}
+    \setlength{\tabLeftSummary}{-1mm}
+    \def\summaryWidth{0.99}
+\fi
+
+
+
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
