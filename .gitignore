@@ -1,15 +1,16 @@
-# Коммитятся только личные скиллы, перечисленные ниже.
-# Всё остальное в ~/.claude/skills игнорируется автоматически:
-# скиллы из установщика Авито (симлинки в ~/.agents/skills), synced/ от Claude Code,
-# save-note из репо Obsidian, .venv, .trash и т.п.
-/*
-!/.gitignore
-!/README.md
-!/book-chapter-digest/
-!/epub-digest-embed/
-!/search-conversations/
-
+# Служебное, создаётся другими инструментами:
+# synced/ — скиллы с claude.ai (Claude Code синхронизирует сам), .trash/ — его же корзина,
+# .venv/ — общий venv для скриптов скиллов, *.digest/ — кэш book-chapter-digest
+synced/
+.trash/
+.venv/
 __pycache__/
 *.pyc
 .DS_Store
 *.digest/
+
+# Рабочие скиллы Авито, которые в этот репо не идут
+/ab-add-user/
+/create-installments-users/
+/fe-tester/
+/installments-helper/
