@@ -16,17 +16,17 @@ __pycache__/
 /installments-helper/
 
 # Скиллы установщика avito ai skills (симлинки в ~/.agents/skills) — в репо не идут
-/apico/
-/app-toml-config/
-/brief/
-/code-quality/
-/databus/
-/ios-app-installer/
-/paas-auth-ratelimit/
-/paas-deploy/
-/paas-local-dev/
-/paas-service-info/
-/queues/
-/resource-manager/
-/stash-pr-review/
-/tdr-security-review/
+/apico
+/app-toml-config
+/brief
+/code-quality
+/databus
+/ios-app-installer
+/paas-auth-ratelimit
+/paas-deploy
+/paas-local-dev
+/paas-service-info
+/queues
+/resource-manager
+/stash-pr-review
+/tdr-security-review
