@@ -29,6 +29,7 @@ Usage:
 """
 
 import sys, os, re, json, argparse, zipfile
+from html import escape
 import xml.etree.ElementTree as ET
 
 try:
@@ -93,7 +94,27 @@ LABEL_STYLE = (
 )
 
 
-def callout(inner_xhtml, anchor_id, label="📖 Конспект"):
+LABELS_BY_LANG = {
+    "ru": {
+        "section": "Конспект по главам",
+        "callout": "📖 Конспект",
+        "toc_inline": "↳ Конспект",
+        "intro": "Краткие выжимки по каждой главе. "
+                 "Сгенерированы автоматически; в самой книге продублированы перед началом глав.",
+        "md_intro": "Краткие выжимки по каждой главе (автогенерация).",
+    },
+    "en": {
+        "section": "Chapter Digests",
+        "callout": "📖 Digest",
+        "toc_inline": "↳ Digest",
+        "intro": "Short digests of each chapter. "
+                 "Auto-generated; also repeated before the start of each chapter.",
+        "md_intro": "Auto-generated digest of each chapter.",
+    },
+}
+
+
+def callout(inner_xhtml, anchor_id, label):
     return (
         f'<div id="{anchor_id}" class="chap-digest" style="{CALLOUT_STYLE}">'
         f'<p style="{LABEL_STYLE}">{label}</p>'
@@ -173,7 +194,7 @@ def make_navpoint(ns, np_id, order, label, src):
     return np
 
 
-def patch_ncx(ncx_bytes, units, opf_dir, digest_href, mode, chap_loc):
+def patch_ncx(ncx_bytes, units, opf_dir, digest_href, mode, chap_loc, labels):
     """mode: 'section' | 'nested' | 'both'. Returns new bytes or None on failure."""
     try:
         root = LET.fromstring(ncx_bytes)
@@ -193,7 +214,7 @@ def patch_ncx(ncx_bytes, units, opf_dir, digest_href, mode, chap_loc):
 
     if mode in ("section", "both"):
         parent = make_navpoint(ns, "digest-root", order_base,
-                               "📖 Конспект по главам", rel(digest_href))
+                               "📖 " + labels["section"], rel(digest_href))
         for k, u in enumerate(units, 1):
             child = make_navpoint(ns, f"digest-{u['id']}", order_base + k,
                                   u["label"], rel(digest_href, f"dig-{u['id']}"))
@@ -222,8 +243,12 @@ def patch_ncx(ncx_bytes, units, opf_dir, digest_href, mode, chap_loc):
                         target_np = np  # file-level fallback
             if target_np is not None:
                 inline_src = rel(loc["epub_file"], f"dig-inline-{u['id']}")
-                target_np.append(make_navpoint(ns, f"digest-inl-{u['id']}",
-                                               order_base + 5000, "↳ Конспект", inline_src))
+                inline_np = make_navpoint(ns, f"digest-inl-{u['id']}",
+                                          order_base + 5000, labels["toc_inline"], inline_src)
+                children = list(target_np)
+                first_child = next((i for i, el in enumerate(children)
+                                    if el.tag == q(ns, "navPoint")), len(children))
+                target_np.insert(first_child, inline_np)
 
     return LET.tostring(root, xml_declaration=True, encoding="utf-8")
 
@@ -231,7 +256,7 @@ def patch_ncx(ncx_bytes, units, opf_dir, digest_href, mode, chap_loc):
 # --------------------------------------------------------------------------- #
 # EPUB3 nav.xhtml helpers (best-effort)
 # --------------------------------------------------------------------------- #
-def patch_nav(nav_bytes, units, nav_path, opf_dir, digest_href, mode, chap_loc):
+def patch_nav(nav_bytes, units, nav_path, opf_dir, digest_href, mode, chap_loc, labels):
     try:
         parser = LET.HTMLParser(encoding="utf-8")
         root = LET.fromstring(nav_bytes, parser)
@@ -272,7 +297,7 @@ def patch_nav(nav_bytes, units, nav_path, opf_dir, digest_href, mode, chap_loc):
         top = LET.Element("li")
         a = LET.SubElement(top, "a")
         a.set("href", rel(digest_href))
-        a.text = "📖 Конспект по главам"
+        a.text = "📖 " + labels["section"]
         sub = LET.SubElement(top, "ol")
         for u in units:
             sub.append(li(rel(digest_href, f"dig-{u['id']}"), u["label"]))
@@ -295,7 +320,7 @@ def patch_nav(nav_bytes, units, nav_path, opf_dir, digest_href, mode, chap_loc):
                 sub = target_li.find("ol")
                 if sub is None:
                     sub = LET.SubElement(target_li, "ol")
-                sub.append(li(rel(loc["epub_file"], f"dig-inline-{u['id']}"), "↳ Конспект"))
+                sub.insert(0, li(rel(loc["epub_file"], f"dig-inline-{u['id']}"), labels["toc_inline"]))
 
     return LET.tostring(root, method="xml", encoding="utf-8", xml_declaration=True)
 
@@ -303,18 +328,23 @@ def patch_nav(nav_bytes, units, nav_path, opf_dir, digest_href, mode, chap_loc):
 # --------------------------------------------------------------------------- #
 # Front digest document
 # --------------------------------------------------------------------------- #
-def build_digest_doc(units):
-    body = ['<h1>📖 Конспект по главам</h1>',
-            '<p style="opacity:0.6;font-size:0.9em;">Краткие выжимки по каждой главе. '
-            'Сгенерированы автоматически; в самой книге продублированы перед началом глав.</p>']
+def starts_with_heading(md_text):
+    return md_text.lstrip().startswith("#")
+
+
+def build_digest_doc(units, labels, lang):
+    body = [f'<h1>📖 {labels["section"]}</h1>',
+            f'<p style="opacity:0.6;font-size:0.9em;">{labels["intro"]}</p>']
     for u in units:
         inner = md_to_xhtml(u["md"])
+        if not starts_with_heading(u["md"]):
+            inner = f'<h2>{escape(u["label"])}</h2>' + inner
         body.append(f'<section id="dig-{u["id"]}" style="margin:1.4em 0;">{inner}</section>')
     return (
         '<?xml version="1.0" encoding="utf-8"?>\n'
         '<!DOCTYPE html>\n'
-        '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">\n'
-        '<head><meta charset="utf-8"/><title>Конспект по главам</title></head>\n'
+        f'<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}" lang="{lang}">\n'
+        f'<head><meta charset="utf-8"/><title>{labels["section"]}</title></head>\n'
         '<body>\n' + "\n".join(body) + '\n</body>\n</html>\n'
     )
 
@@ -378,12 +408,16 @@ def main():
     ap.add_argument("--cache-dir", help="for index.json (chapter locations for nested TOC)")
     ap.add_argument("--md-out", help="also write a standalone Markdown digest of the whole book")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--lang", choices=sorted(LABELS_BY_LANG),
+                    help="language of the digests (UI labels); defaults to plan['lang'] or ru")
     args = ap.parse_args()
 
     plan = json.load(open(args.plan, encoding="utf-8"))
     units = plan["units"]
     placement = plan.get("placement", "both")
     toc_mode = plan.get("toc", "both")
+    lang = args.lang or plan.get("lang", "ru")
+    labels = LABELS_BY_LANG[lang]
     for u in units:
         if not u.get("md", "").strip():
             raise SystemExit(f"unit {u['id']} has empty 'md' — generate digests first")
@@ -424,7 +458,7 @@ def main():
                 m = re.search(r'<[^>]*\bid\s*=\s*["\']' + re.escape(a) + r'["\']', text, re.I)
                 return m.start() if m else -1
             for u in sorted(us, key=anchor_pos, reverse=True):
-                block = callout(md_to_xhtml(u["md"]), f"dig-inline-{u['id']}")
+                block = callout(md_to_xhtml(u["md"]), f"dig-inline-{u['id']}", labels["callout"])
                 text, ok = insert_inline(text, u.get("inject_anchor"), block)
                 if not ok:
                     warnings.append(f"inline: anchor not found for {u['id']} in {fname}")
@@ -435,7 +469,7 @@ def main():
     digest_name = (content_dir + "/zz_digest.xhtml") if content_dir else "zz_digest.xhtml"
     digest_name = os.path.normpath(digest_name).replace("\\", "/")
     if placement in ("front", "both"):
-        files[digest_name] = build_digest_doc(units).encode("utf-8")
+        files[digest_name] = build_digest_doc(units, labels, lang).encode("utf-8")
         digest_rel = os.path.relpath(digest_name, opf_dir or ".").replace("\\", "/")
         files[opf_path] = patch_opf_add_digest(files[opf_path], opf_dir, digest_rel,
                                                 first_content_file)
@@ -444,7 +478,7 @@ def main():
     # 3. TOC — NCX
     ncx_name = next((n for n in files if n.lower().endswith(".ncx")), None)
     if ncx_name:
-        new = patch_ncx(files[ncx_name], units, opf_dir, digest_name, toc_mode, chap_loc)
+        new = patch_ncx(files[ncx_name], units, opf_dir, digest_name, toc_mode, chap_loc, labels)
         if new:
             files[ncx_name] = new
         else:
@@ -463,7 +497,7 @@ def main():
     except Exception:
         pass
     if nav_name and nav_name in files:
-        new = patch_nav(files[nav_name], units, nav_name, opf_dir, digest_name, toc_mode, chap_loc)
+        new = patch_nav(files[nav_name], units, nav_name, opf_dir, digest_name, toc_mode, chap_loc, labels)
         if new:
             files[nav_name] = new
         else:
@@ -474,10 +508,13 @@ def main():
     # standalone Markdown digest artifact (second deliverable)
     if args.md_out:
         title = plan.get("book") or os.path.splitext(os.path.basename(args.out))[0]
-        parts = [f"# Конспект по главам — {title}\n",
-                 "_Краткие выжимки по каждой главе (автогенерация)._\n"]
+        parts = [f"# {labels['section']} — {title}\n",
+                 f"_{labels['md_intro']}_\n"]
         for u in units:
-            parts.append(u["md"].strip() + "\n")
+            md = u["md"].strip()
+            if not starts_with_heading(md):
+                md = f"## {u['label']}\n\n{md}"
+            parts.append(md + "\n")
             parts.append("\n---\n")
         if parts and parts[-1] == "\n---\n":
             parts.pop()

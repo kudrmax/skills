@@ -142,7 +142,9 @@ Edit `<work>/plan_draft.json` into the final `<work>/plan.json`. Each unit needs
 `id`, `kind` (`chapter`/`subsection`/`group`), `label`, `source_chapters` (index
 numbers), `inject_file`, `inject_anchor` (id to insert before, or `null` for top
 of chapter), and — for subsection units — `section_ids`. Also set top-level
-`"placement"` and `"toc"` (defaults `"both"`/`"both"`).
+`"placement"` and `"toc"` (defaults `"both"`/`"both"`), and `"lang"` — the
+digest language (`"en"` or `"ru"`, default `"ru"`), which sets the language of
+the labels the injector adds (section title, callout, TOC entries).
 
 ### 4. Show the plan to the user and get the go-ahead
 
@@ -207,6 +209,8 @@ every worker so the whole book comes out in one language. **Decide this silently
 irrelevant to the digest language: a Russian-speaking user embedding digests into
 an English book still gets **English** digests by default. Deviate only if the
 user, unprompted, already named a specific digest language.
+Record the chosen language as `"lang"` in `plan.json` so the injected labels
+match the digests.
 
 This is cheap in context and is what stops each worker from summarizing its
 chapters blind. Do **not** read every chapter here — that would defeat the point.
@@ -278,8 +282,8 @@ step 6.
     --out "<book-dir>/<book-stem> (с конспектом).epub"
 ```
 
-This produces **two deliverables**: the new epub (front "Конспект по главам"
-document + a styled digest callout before each unit's anchor + NCX/nav entries),
+This produces **two deliverables**: the new epub (front digest
+document with a heading per unit + a styled digest callout before each unit's anchor + NCX/nav entries),
 **and** a standalone Markdown digest of the whole book (`--md-out`). It rezips
 correctly (mimetype first/stored) and keeps the original untouched. Watch its
 stdout for `⚠️` warnings (e.g. an anchor it couldn't find).
