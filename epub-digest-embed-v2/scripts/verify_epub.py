@@ -54,7 +54,7 @@ def probe_from_md(md):
     for line in md.split("\n"):
         p = plain(line)
         # drop metadata-ish lines
-        if re.search(r"\d+\s*слов|мин чтения", p):
+        if line.lstrip().startswith("#") or re.search(r"\d+\s*(слов|words)|мин чтения|min read", p):
             continue
         if len(p) > len(best):
             best = p

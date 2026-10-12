@@ -328,17 +328,20 @@ def patch_nav(nav_bytes, units, nav_path, opf_dir, digest_href, mode, chap_loc, 
 # --------------------------------------------------------------------------- #
 # Front digest document
 # --------------------------------------------------------------------------- #
-def starts_with_heading(md_text):
-    return md_text.lstrip().startswith("#")
+def strip_title_heading(md_text):
+    """The unit's label is the title; drop a leading Markdown heading the
+    summary template may carry so the title is not shown twice."""
+    lines = md_text.strip().split("\n")
+    if lines and lines[0].lstrip().startswith("#"):
+        lines = lines[1:]
+    return "\n".join(lines).strip()
 
 
 def build_digest_doc(units, labels, lang):
     body = [f'<h1>📖 {labels["section"]}</h1>',
             f'<p style="opacity:0.6;font-size:0.9em;">{labels["intro"]}</p>']
     for u in units:
-        inner = md_to_xhtml(u["md"])
-        if not starts_with_heading(u["md"]):
-            inner = f'<h2>{escape(u["label"])}</h2>' + inner
+        inner = f'<h2>{escape(u["label"])}</h2>' + md_to_xhtml(u["md"])
         body.append(f'<section id="dig-{u["id"]}" style="margin:1.4em 0;">{inner}</section>')
     return (
         '<?xml version="1.0" encoding="utf-8"?>\n'
@@ -421,6 +424,7 @@ def main():
     for u in units:
         if not u.get("md", "").strip():
             raise SystemExit(f"unit {u['id']} has empty 'md' — generate digests first")
+        u["md"] = strip_title_heading(u["md"])
 
     # chapter locations (for nested TOC) from index.json if available
     chap_loc = {}
@@ -511,10 +515,7 @@ def main():
         parts = [f"# {labels['section']} — {title}\n",
                  f"_{labels['md_intro']}_\n"]
         for u in units:
-            md = u["md"].strip()
-            if not starts_with_heading(md):
-                md = f"## {u['label']}\n\n{md}"
-            parts.append(md + "\n")
+            parts.append(f"## {u['label']}\n\n{u['md']}\n")
             parts.append("\n---\n")
         if parts and parts[-1] == "\n---\n":
             parts.pop()

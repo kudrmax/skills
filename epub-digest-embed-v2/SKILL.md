@@ -239,25 +239,29 @@ Give each worker, in its prompt:
   (whole chapter, or
   only the span of its `section_ids` for a subsection unit) and write the digest
   **from that text only** — the grounding rules are that skill's;
-- the required return shape: for each unit
+- the output file: `<work>/batch<K>.json` (K = the batch number), a JSON array
+  with one object per unit:
   `{ "id", "md", "gist_one_line", "introduced_terms": [ ... ] }`, where
   `introduced_terms` are the book's own coinages this unit first defines (e.g.
-  "Workview", "gravity problem"). `gist_one_line` is the unit's one-sentence суть.
-  `md` starts with the word/time line, without the chapter-title heading (the
-  injector adds the title).
+  "Workview", "gravity problem") and `gist_one_line` is the unit's one-sentence
+  gist. `md` follows the summary template as is; the injector replaces its
+  title heading with the unit's label. The worker checks that the file parses
+  as JSON and replies with a one-line status only.
 
 The full chapter text lives and dies inside the worker; only these compact
-objects come back. Workers are independent — none reads another's chapters.
+objects come back, through files rather than through messages, because a
+batch of summaries is too large to copy through a reply reliably. Workers are independent — none reads another's chapters.
 
 **5·O.d — Gather and aggregate (orchestrator, light context).**
-Collect all workers' returns. Build two compact artifacts:
+Wait until every `batch<K>.json` exists and parses. Build two compact artifacts:
 - a **glossary** — merge every `introduced_terms` into one list, each term mapped
   to the unit that first defines it (emergent, bottom-up — you did not have to
   guess it up front);
 - a **gist map** — the ordered list of every unit's `gist_one_line`.
 
 **5·O.e — Reconcile with a single reviser subagent.**
-Hand the reviser: all the units' `md`, the glossary, the gist map, and the brief.
+Hand the reviser the paths of the batch files, the glossary, the gist map and the
+brief.
 Tell it to read `book-chapter-digest-v2`'s SKILL.md first: the writing rules
 there ("How the summary reads") apply to every sentence the reviser touches or
 adds. Its job is **coherence, not new content** — it never had the raw text and
@@ -281,11 +285,13 @@ must not invent any:
   changes what is claimed and never adds facts, claims or specifics that a
   worker didn't write. When unsure about a fact, leave it as the worker wrote it.
 
-It returns the final `md` per unit plus a short changelog of what it adjusted.
+It writes `<work>/final.json` — an object `{ "<unit id>": "<final md>", ... }`
+with every unit — checks that it parses, and replies with a short changelog of
+what it adjusted.
 
 **5·O.f — Land the results.**
-Put each unit's final `md` into its `"md"` field in `plan.json`. Continue to
-step 6.
+Copy each unit's final `md` from `final.json` into its `"md"` field in
+`plan.json` with a small script, not by hand. Continue to step 6.
 
 ### 6. Inject and patch the TOC
 
