@@ -47,12 +47,23 @@ bare `python`/`python3`.
 
 - `<book>` — the absolute path to the .epub the user gave. It is only read, never
   modified.
-- `<work>` — the working directory next to the book: `<book-dir>/<book-stem>.digest/`
-  (the cache dir `build_index.py` creates by default). `plan.json` and all
-  intermediate files go there.
-- Outputs go next to the book: `<book-dir>/<book-stem> (с конспектом).epub` and
-  `<book-dir>/<book-stem> — конспект.md`. If the book's directory is not
-  writable, use `$TMPDIR/<book-stem>.digest/` for both `<work>` and the outputs.
+- `<work>`, `<out-epub>`, `<out-md>` — the work dir and the two outputs. Before
+  step 1, pick them with:
+
+  ```bash
+  ~/.claude/skills/.venv/bin/python ~/.claude/skills/epub-digest-embed-v2/scripts/output_paths.py --epub "<book>"
+  ```
+
+  It names them after the book's title from the epub metadata, in the book's
+  language (`Flourish.digest/`, `Flourish (with digest).epub`,
+  `Flourish — digest.md`), and takes the next free version (`v2`, `v3`, …) when
+  an earlier run exists, so nothing is overwritten and no stale intermediate
+  files are reused. It falls back to `$TMPDIR` when the book's directory is not
+  writable. Save its JSON output as `<work>/paths.json` once the work dir exists.
+  If the digest language chosen in 5·O.a differs from the `lang` there, rerun it
+  with `--lang <lang> --version <version>` to get the output names in that
+  language.
+- `plan.json` and all intermediate files go into `<work>`.
 
 ## The one rule that defines this skill
 
@@ -280,16 +291,44 @@ must not invent any:
 - **Fix readability** wherever a worker's sentence breaks the writing rules:
   split it, turn a bracket into a sentence, name the relation in words. This
   changes form only.
-- **Catch contradictions** between units and flag or gently resolve them.
+- **Catch contradictions** between units: list every factual disagreement in
+  `conflicts.json` (see below); step 5·O.f checks them against the source.
 - **Preserve grounding.** The reviser may change how a claim is said; it never
   changes what is claimed and never adds facts, claims or specifics that a
   worker didn't write. When unsure about a fact, leave it as the worker wrote it.
 
 It writes `<work>/final.json` — an object `{ "<unit id>": "<final md>", ... }`
 with every unit — checks that it parses, and replies with a short changelog of
-what it adjusted.
+what it adjusted. It also writes `<work>/conflicts.json`: a list of the factual
+disagreements it found between units, each as
+`{ "id": "c1", "units": ["u03", "u10"], "claims": ["<what u03 says>", "<what u10 says>"] }`
+(an empty list when there are none). The reviser does not resolve these itself,
+because it has no source text.
 
-**5·O.f — Land the results.**
+**5·O.f — Check each conflict against the source.**
+For every entry in `conflicts.json`, dispatch a small checker subagent, all in
+parallel. Give it the conflict, the work dir and the source chapter numbers of
+both units. It reads `book-chapter-digest-v2`'s SKILL.md, finds the passages
+behind both claims in the cached chapter texts (`<work>/chap_NNN.txt`; search,
+don't read whole chapters), and decides which case it is:
+- **A summary is wrong** — it misreports the source. The fix corrects that
+  summary to match the source.
+- **Both are right** — the disagreement is only apparent (a total versus a
+  per-country figure, two different studies). The fix rewords one or both
+  summaries so the relation is visible.
+- **The author contradicts himself** — the source itself says different things.
+  The summaries keep what the author says, and the later unit gets one sentence
+  naming the discrepancy ("In Chapter 2 the author gives three years instead.").
+
+It writes `<work>/conflict-<id>.json`:
+`{ "id", "case", "evidence": ["<short quote from each source passage>"], "edits": [ { "unit", "old", "new" } ] }`,
+where each edit replaces an exact substring of that unit's `md` in `final.json`.
+Then apply all edits with a small script, one after another, checking that each
+`old` string is still present; re-dispatch a checker whose edit no longer
+applies. Checkers never write `final.json` themselves, so parallel checkers
+cannot overwrite each other.
+
+**5·O.g — Land the results.**
 Copy each unit's final `md` from `final.json` into its `"md"` field in
 `plan.json` with a small script, not by hand. Continue to step 6.
 
@@ -300,8 +339,8 @@ Copy each unit's final `md` from `final.json` into its `"md"` field in
     --epub "<book>" \
     --plan "<work>/plan.json" \
     --cache-dir "<work>" \
-    --md-out "<book-dir>/<book-stem> — конспект.md" \
-    --out "<book-dir>/<book-stem> (с конспектом).epub"
+    --md-out "<out-md>" \
+    --out "<out-epub>"
 ```
 
 This produces **two deliverables**: the new epub (front digest
@@ -317,7 +356,7 @@ option**. Always run the verifier:
 
 ```bash
 ~/.claude/skills/.venv/bin/python ~/.claude/skills/epub-digest-embed-v2/scripts/verify_epub.py \
-    --epub "<book-dir>/<book-stem> (с конспектом).epub" \
+    --epub "<out-epub>" \
     --plan "<work>/plan.json" --cache-dir "<work>"
 ```
 
@@ -365,6 +404,8 @@ first, then the Markdown digest. Never overwrite the original book file.
 All scripts live in `~/.claude/skills/epub-digest-embed-v2/scripts/` and run with
 `~/.claude/skills/.venv/bin/python`.
 
+- `scripts/output_paths.py` — work dir and output names from the epub metadata,
+  versioned so earlier runs are never overwritten.
 - `scripts/plan_helper.py` — structure report + conservative draft plan
   (protects intro-type and substantial sections from being skipped).
 - `scripts/inject_digest.py` — md→XHTML, front doc, inline callouts, NCX/nav
