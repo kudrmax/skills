@@ -14,6 +14,7 @@ __pycache__/
 /create-installments-users/
 /fe-tester/
 /installments-helper/
+/avito-testing/
 
 # Скиллы установщика avito ai skills (симлинки в ~/.agents/skills) — в репо не идут
 /apico
@@ -22,6 +23,7 @@ __pycache__/
 /code-quality
 /databus
 /ios-app-installer
+/ios-app-tester
 /paas-auth-ratelimit
 /paas-deploy
 /paas-local-dev
