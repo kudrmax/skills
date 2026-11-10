@@ -1,5 +1,5 @@
 ---
-name: event-to-calendar
+name: add-event
 description: Turns an event from any input (link, Telegram post, pasted text, screenshot, announcement) into a calendar entry — an .ics file that opens in Apple Calendar with a calendar picker, plus a Google Calendar link. Use whenever the user drops a link or text about an event, concert, meetup, lecture, party, webinar or any happening and wants it in their calendar — "добавь в календарь", "в календарь", or just a bare link/post with no words. Never guesses the date or time: quotes the source for each, and states plainly what is missing.
 ---
 

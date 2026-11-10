@@ -100,8 +100,8 @@ def main() -> None:
 
     description = "\n\n".join(x for x in [a.description, a.url] if x)
     lines = [
-        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//event-to-calendar//EN", "CALSCALE:GREGORIAN",
-        "BEGIN:VEVENT", f"UID:{uuid.uuid4()}@event-to-calendar", f"DTSTAMP:{stamp}", *dt_lines,
+        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//add-event//EN", "CALSCALE:GREGORIAN",
+        "BEGIN:VEVENT", f"UID:{uuid.uuid4()}@add-event", f"DTSTAMP:{stamp}", *dt_lines,
         f"SUMMARY:{escape(a.title)}",
     ]
     if a.location:
