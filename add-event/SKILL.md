@@ -1,6 +1,6 @@
 ---
 name: add-event
-description: Turns an event from any input (link, Telegram post, pasted text, screenshot, announcement) into an "add to Apple Calendar" link for iPhone and, in Claude Code, a one-tap open of the event in Calendar on the Mac; plus a Google Calendar link. Use whenever the user drops a link or text about an event, concert, meetup, lecture, party, webinar or any happening and wants it in their calendar — "добавь в календарь", "в календарь", or just a bare link/post with no words. Never guesses the date or time: quotes the source for each, and states plainly what is missing.
+description: Turns an event from any input (link, Telegram post, pasted text, screenshot, announcement) into an "add to Apple Calendar" link for iPhone and, in Claude Code, a one-tap Run command that opens it in Calendar on the Mac; plus a Google Calendar link. Use whenever the user drops a link or text about an event, concert, meetup, lecture, party, webinar or any happening and wants it in their calendar — "добавь в календарь", "в календарь", or just a bare link/post with no words. Never guesses the date or time: quotes the source for each, and states plainly what is missing.
 ---
 
 # Event → calendar
@@ -48,21 +48,21 @@ python3 <skill-dir>/scripts/make_links.py \
   --title "..." --start "YYYY-MM-DD HH:MM" [--end "YYYY-MM-DD HH:MM"] \
   --tz Europe/Belgrade --weekday "пятница" \
   --location "..." [--url "<link the user sent>"] --description-file <post.txt> \
-  [--out-dir ~/Downloads]
+  [--out-dir /tmp/add-event]
 ```
 
 The script prints `WHEN`, `PHONE`, `GOOGLE`, and with `--out-dir` also `ICS` (the file path). If it fails on the weekday check — the date or year is wrong: report it, create nothing.
 
 Hand-offs:
 - **iPhone:** the `PHONE` link. It returns a raw .ics, so iOS shows the Apple Calendar add dialog. On a Mac the same link only downloads the file.
-- **Mac, Claude Code only:** pass `--out-dir ~/Downloads`. **Never open the file on your own** — the user may be away, a sudden Calendar dialog is unwanted. Offer it as a choice the user taps: in the Claude desktop app, a reply button «Открыть на ноуте» (via the next-step box); in a plain terminal, one line «Открыть на ноуте?». Only when the user says so, run `open "<ICS>"`: Calendar shows the add dialog with a calendar picker.
+- **Mac, Claude Code only:** pass `--out-dir /tmp/add-event` (macOS clears it on its own). **Never open the file yourself** — the user may be away, a sudden Calendar dialog is unwanted. Put the command `open "<ICS>"` in the answer as a single-line ```bash block: the Claude desktop app shows a Run button on it, and Calendar opens the add dialog with a calendar picker when the user taps it.
 - **Claude.ai chat:** no Mac hand-off; the `PHONE` link is the one to tap.
 
 ## 4. Answer — minimal, no filler
 
 No intro, no retelling of the post, no closing phrases. Exactly this shape (Russian):
 
-```
+````
 **<Название>**
 📅 <пт, 13.11.2026, 19:00–21:00 (Europe/Belgrade)>
 📍 <место>
@@ -76,11 +76,17 @@ No intro, no retelling of the post, no closing phrases. Exactly this shape (Russ
 
 [📱 Добавить с телефона](<PHONE>)
 [Google Calendar](<GOOGLE>)
+
+💻 Добавить с ноута:
+```bash
+open "<ICS>"
 ```
+````
+
+(The ноут block only in Claude Code; in claude.ai drop it.)
 
 - Omit "Допущения" if there are none.
 - Quotes are verbatim, copied character for character.
-- In Claude Code, add the «Открыть на ноуте» choice described above.
 
 If something blocks:
 
