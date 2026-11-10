@@ -16,7 +16,7 @@ import sys
 import uuid
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import quote, urlencode
+from urllib.parse import urlencode
 from zoneinfo import ZoneInfo
 
 WEEKDAYS = {
@@ -144,7 +144,6 @@ def main() -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(event.ics(), encoding="utf-8")
         print(f"ICS: {path}")
-        print(f"ICS_URL: file://{quote(str(path))}")
     print(f"GOOGLE: {event.google_link()}")
 
 

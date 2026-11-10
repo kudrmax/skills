@@ -74,16 +74,19 @@ No intro, no retelling of the post, no closing phrases. Exactly this shape (Russ
 - <год не указан — взят 2026>
 - <конец не указан — +2 ч>
 
-[📱 Добавить с телефона](<PHONE>)
-[Google Calendar](<GOOGLE>)
+📱 Добавить с телефона:
+[Apple Calendar](<PHONE>)
 
 💻 Добавить с ноута:
 ```bash
 open "<ICS>"
 ```
+
+🌐 Добавить в Google Calendar:
+[Google Calendar](<GOOGLE>)
 ````
 
-(The ноут block only in Claude Code; in claude.ai drop it.)
+Every hand-off is a heading line plus the link or command below it, in this order. Never paste a raw URL — always a short-labelled link. The 💻 block only in Claude Code; in claude.ai drop it.
 
 - Omit "Допущения" if there are none.
 - Quotes are verbatim, copied character for character.
