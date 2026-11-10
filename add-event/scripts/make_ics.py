@@ -37,6 +37,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--location", default="")
     p.add_argument("--url", default="")
     p.add_argument("--description", default="")
+    p.add_argument("--description-file", help="file with the verbatim event text; overrides --description")
     p.add_argument("--out-dir", default=".")
     return p.parse_args()
 
@@ -98,6 +99,8 @@ def main() -> None:
         dt_lines = [f"DTSTART:{s_utc:%Y%m%dT%H%M%SZ}", f"DTEND:{e_utc:%Y%m%dT%H%M%SZ}"]
         g_dates = f"{s_utc:%Y%m%dT%H%M%SZ}/{e_utc:%Y%m%dT%H%M%SZ}"
 
+    if a.description_file:
+        a.description = Path(a.description_file).expanduser().read_text(encoding="utf-8").strip()
     description = "\n\n".join(x for x in [a.description, a.url] if x)
     lines = [
         "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//add-event//EN", "CALSCALE:GREGORIAN",

@@ -41,9 +41,15 @@ Rules:
 python3 <skill-dir>/scripts/make_ics.py \
   --title "..." --start "YYYY-MM-DD HH:MM" [--end "YYYY-MM-DD HH:MM"] \
   --tz Europe/Belgrade --weekday "пятница" \
-  --location "..." --url "<source link>" --description "<1–2 lines>" \
+  --location "..." [--url "<link the user sent>"] --description-file <post.txt> \
   --out-dir <dir>
 ```
+
+Event description = the source itself, the ground truth:
+- Write the full event text to `<post.txt>` verbatim: same words, line breaks, emoji. Do not summarize, translate, reformat or shorten.
+- Pasted text or a Telegram post → the whole text as is.
+- Web page → only the part about the event, verbatim; drop site chrome (menus, buttons, cookie banners, footers, related links).
+- `--url` = the link the user sent, if any; the script appends it to the description. Text only, no link → omit `--url`.
 
 The script prints `WHEN`, `ICS` and `GOOGLE`. If it fails on the weekday check — the date or year is wrong: report it, create nothing.
 
